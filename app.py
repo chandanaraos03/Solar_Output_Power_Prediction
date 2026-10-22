@@ -23,11 +23,9 @@ st.markdown("""
 </style>
 """, unsafe_allow_html=True)
 
-
 @st.cache_resource
 def load_model():
     return joblib.load("model.pkl")
-
 
 @st.cache_data
 def load_data():
