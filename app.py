@@ -23,9 +23,23 @@ st.markdown("""
 </style>
 """, unsafe_allow_html=True)
 
+
+from pathlib import Path
+import joblib
+import streamlit as st
+
+BASE_DIR = Path(__file__).resolve().parent
+
 @st.cache_resource
 def load_model():
-    return joblib.load("model.pkl")
+    model_path = BASE_DIR / "model.pkl"
+
+    if not model_path.is_file():
+        st.error(f"Model file not found: {model_path}")
+        st.stop()
+
+    return joblib.load(model_path)
+
 
 @st.cache_data
 def load_data():
